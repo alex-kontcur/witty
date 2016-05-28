@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="springHandlerFactory" class="com.witty.spring.SpringHandlerFactory"/>
+
+    <bean id="monitorableHandler" factory-bean="springHandlerFactory" factory-method="createSpringMVCHandler">
+        <constructor-arg index="0" value="classpath*:/META-INF/spring/web-services.xml"/>
+        <constructor-arg index="1" value="/*"/>
+    </bean>
+
+    <!-- http://wiki.eclipse.org/Jetty/Howto/High_Load#Linux -->
+    <bean id="webServer" class="org.eclipse.jetty.server.Server" init-method="start" destroy-method="stop">
+        <constructor-arg name="pool">
+            <bean class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+                <constructor-arg name="maxThreads" value="${jetty.max-threads:200}"/>
+                <constructor-arg name="minThreads" value="${jetty.min-threads:10}"/>
+                <constructor-arg name="idleTimeout" value="${jetty.idle-timeout:1000}"/>
+                <constructor-arg name="queue">
+                    <bean class="java.util.concurrent.ArrayBlockingQueue">
+                        <!--
+                        Recommendations based on official documentation:
+                         For example, if the webapp can handle 100 requests per second, and if you can allow it one
+                         minute to recover from excessive high load, you can set the queue capability to 60*100=6000
+
+                         For our case average response time for most of all methods with AZR D2 instance equal to 35 ms.
+                         So 35*60=2100
+                        -->
+                        <constructor-arg index="0" type="int" value="${jetty.accept-queue-size:2000}"/>
+                    </bean>
+                </constructor-arg>
+                <property name="detailedDump" value="${jetty.detailed-dump:false}"/>
+                <property name="name" value="JTP"/>
+            </bean>
+        </constructor-arg>
+        <property name="connectors">
+            <set>
+                <ref bean="jettyConnector"/>
+            </set>
+        </property>
+        <property name="handler">
+            <bean class="org.eclipse.jetty.server.handler.HandlerCollection">
+                <property name="handlers">
+                    <array>
+                        <ref bean="monitorableHandler"/>
+                    </array>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="jettyConnector" class="org.eclipse.jetty.server.ServerConnector">
+        <constructor-arg name="server" ref="webServer"/>
+        <!-- acceptors >=1 <= # CPUs -->
+        <!-- The standard rule of thumb for the number of Acceptors to configure is one per CPU on a given machine.-->
+
+        <constructor-arg name="acceptors" value="${jetty.acceptors:2}"/>
+        <constructor-arg name="selectors" value="${jetty.selectors:-1}"/>
+
+        <property name="host" value="${jetty.host}"/>
+        <property name="port" value="${jetty.port}"/>
+    </bean>
+</beans>

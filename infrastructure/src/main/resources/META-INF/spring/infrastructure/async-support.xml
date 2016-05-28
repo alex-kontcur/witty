@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <task:annotation-driven executor="serverExecutor" scheduler="serverScheduler"/>
+
+    <bean id="serverExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="threadNamePrefix" value="GSE-"/>
+        <property name="corePoolSize" value="${executor.core-pool-size:10}"/>
+        <property name="maxPoolSize" value="${executor.max-pool-size:20}"/>
+        <property name="queueCapacity" value="${executor.queue-capacity:10}"/>
+    </bean>
+
+    <bean id="serverScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+        <property name="threadNamePrefix" value="GSS-"/>
+        <property name="poolSize" value="${scheduler.pool-size:10}"/>
+    </bean>
+</beans>

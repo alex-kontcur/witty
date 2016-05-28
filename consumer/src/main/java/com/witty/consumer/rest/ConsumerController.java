@@ -8,6 +8,7 @@ package com.witty.consumer.rest;
 import com.witty.api.v1.AmicableRequestDto;
 import com.witty.api.v1.AmicableSumDto;
 import com.witty.consumer.service.AmicableService;
+import com.witty.consumer.service.IndempotenceService;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.MediaType;
@@ -33,8 +34,12 @@ public class ConsumerController {
     @Inject
     private AmicableService amicableService;
 
+    @Inject
+    private IndempotenceService indempotenceService;
+
     @RequestMapping(method = RequestMethod.POST)
     public AmicableSumDto calculateSum(@Valid @RequestBody AmicableRequestDto amicableRequestDto) {
+        indempotenceService.checkIndempotence(amicableRequestDto.getMissionId());
         return amicableService.calculateSum(amicableRequestDto);
     }
 

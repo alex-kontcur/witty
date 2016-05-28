@@ -132,8 +132,7 @@ public class AbstractMvcTest {
                 handlers[0].handle(new String(result.getResponse().getContentAsByteArray(), "utf8"));
             }
 
-            //noinspection OverlyComplexBooleanExpression
-            if (status != 200 && status != 404 && status != 409 && status != 204) {
+            if (status != 200) {
                 logger.error("");
                 logger.error("Response HTTP Status = {}", status);
                 throw new AssertionError();

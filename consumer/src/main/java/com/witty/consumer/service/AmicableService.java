@@ -11,10 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.SortedMap;
-
 /**
  * AmicableService
  *
@@ -27,15 +23,7 @@ public class AmicableService {
     @Value("${witty.producer.seed.high.bound:20000}")
     private Integer seedHighBound;
 
-    @Inject
-    private MatrixProcessor matrixProcessor;
-
-    private SortedMap<Integer, Long> map;
-
-    @PostConstruct
-    public void init() {
-        map = matrixProcessor.prepareSumThresholds(seedHighBound);
-    }
+    //todo - matrix ranges
 
     @Cacheable(value = "com.witty.api.v1.AmicableSumDto", unless = "#result == null")
     public AmicableSumDto calculateSum(AmicableRequestDto amicableRequestDto) {

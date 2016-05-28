@@ -41,14 +41,33 @@ public class ConsumerTest extends AbstractMvcTest {
     private Random random = new SecureRandom();
 
     @Test
-    public void consumerControllerWorkingCorrectly() throws Exception {
-
-        AmicableRequestDto amicableRequestDto = new AmicableRequestDto();
-        amicableRequestDto.setMissionId(random.nextInt());
-        amicableRequestDto.setSeed(random.nextInt(seedHighBound - seedLowBound) + seedLowBound);
-
+    public void amicableSumGettingErrorOnDuplicateMissionId() throws Exception {
+        AmicableRequestDto amicableRequestDto = prepareAmicableRequest(1);
         AmicableSumDto sumDto = doPost("/messages", amicableRequestDto, AmicableSumDto.class);
         assertNotNull(sumDto);
+
+        Exception exception = null;
+        try {
+            amicableRequestDto = prepareAmicableRequest(1);
+            doPost("/messages", amicableRequestDto, AmicableSumDto.class);
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+    }
+
+    @Test
+    public void consumerControllerWorkingCorrectly() throws Exception {
+        AmicableRequestDto amicableRequestDto = prepareAmicableRequest(random.nextInt());
+        AmicableSumDto sumDto = doPost("/messages", amicableRequestDto, AmicableSumDto.class);
+        assertNotNull(sumDto);
+    }
+
+    private AmicableRequestDto prepareAmicableRequest(int missionId) {
+        AmicableRequestDto amicableRequestDto = new AmicableRequestDto();
+        amicableRequestDto.setMissionId(missionId);
+        amicableRequestDto.setSeed(random.nextInt(seedHighBound - seedLowBound) + seedLowBound);
+        return amicableRequestDto;
     }
 
 

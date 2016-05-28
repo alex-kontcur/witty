@@ -10,7 +10,7 @@
         <property name="fileEncoding" value="UTF-8"/>
         <property name="locations">
             <list>
-                <value>classpath*:consumer.auto.properties</value>
+                <value>classpath*:consumer.test.properties</value>
             </list>
         </property>
     </bean>

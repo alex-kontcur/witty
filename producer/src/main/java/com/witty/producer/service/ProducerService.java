@@ -51,7 +51,7 @@ public class ProducerService {
     public void requestTask() {
         try {
             AmicableRequestDto amicableRequestDto = new AmicableRequestDto();
-            amicableRequestDto.setMissionId(/*random.nextInt()*/  11);
+            amicableRequestDto.setMissionId(random.nextInt());
             amicableRequestDto.setSeed(random.nextInt(seedHighBound - seedLowBound) + seedLowBound);
             AmicableSumDto amicableSumDto = getSum(amicableRequestDto);
             logger.info("Response sum for {} = {}", amicableRequestDto, amicableSumDto);

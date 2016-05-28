@@ -19,10 +19,7 @@
         <property name="httpClient" ref="httpClient"/>
     </bean>
 
-    <bean id="errorHandler" class="com.witty.error.ErrorHandler"/>
-
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-        <property name="errorHandler" ref="errorHandler"/>
         <property name="requestFactory" ref="clientHttpRequestFactory"/>
         <property name="messageConverters">
             <list>

@@ -13,13 +13,13 @@ package com.witty.api.v1;
  */
 public class AmicableSumDto {
 
-    private Integer correctAnswer;
+    private Long correctAnswer;
 
-    public Integer getCorrectAnswer() {
+    public Long getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(Integer correctAnswer) {
+    public void setCorrectAnswer(Long correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 

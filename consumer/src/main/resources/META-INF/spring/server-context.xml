@@ -15,9 +15,8 @@
     </bean>
 
     <import resource="classpath*:META-INF/spring/infrastructure/async-support.xml"/>
-    <!--<import resource="classpath*:META-INF/spring/infrastructure/web-server.xml"/>-->
-    <import resource="classpath*:META-INF/spring/infrastructure/caches.xml"/>
     <import resource="classpath*:META-INF/spring/infrastructure/validation.xml"/>
+    <import resource="classpath*:META-INF/spring/infrastructure/caches.xml"/>
 
     <bean class="com.witty.error.ServerExceptionHandler"/>
 

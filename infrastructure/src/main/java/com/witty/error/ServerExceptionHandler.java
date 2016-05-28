@@ -32,7 +32,7 @@ import java.util.List;
 public class ServerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseBody
-    @ExceptionHandler(DuplicatedMissionIdException.class)
+    @ExceptionHandler({DuplicatedMissionIdException.class, SeedRangeNotFoundException.class})
     public ResponseEntity<Object> handleValidationAndViolation(Exception ex, WebRequest request) {
         return buildResponse(ex, HttpStatus.CONFLICT);
     }

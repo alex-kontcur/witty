@@ -51,7 +51,7 @@ public class ProducerService {
     public void requestTask() {
         try {
             AmicableRequestDto amicableRequestDto = new AmicableRequestDto();
-            amicableRequestDto.setMissionId(random.nextInt());
+            amicableRequestDto.setMissionId(/*random.nextInt()*/  11);
             amicableRequestDto.setSeed(random.nextInt(seedHighBound - seedLowBound) + seedLowBound);
             AmicableSumDto amicableSumDto = getSum(amicableRequestDto);
             logger.info("Response sum for {} = {}", amicableRequestDto, amicableSumDto);
@@ -62,6 +62,7 @@ public class ProducerService {
 
     public AmicableSumDto getSum(AmicableRequestDto amicableRequestDto) {
         try {
+            logger.info("");
             logger.info("Getting amicable sum for {}", amicableRequestDto);
             String json = gson.toJson(amicableRequestDto);
             HttpHeaders httpHeaders = new HttpHeaders();
@@ -71,7 +72,6 @@ public class ProducerService {
 
             ResponseEntity<AmicableSumDto> response = restTemplate.exchange(url + "/messages", HttpMethod.POST, entity, AmicableSumDto.class);
             HttpStatus statusCode = response.getStatusCode();
-            logger.info("statusCode = {}", statusCode);
             if (statusCode.equals(HttpStatus.OK)) {
                 return response.getBody();
             }

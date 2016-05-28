@@ -30,6 +30,7 @@ public class IndempotenceService {
     public void checkIndempotence(Integer missionId) {
         Long current = conflictMap.putIfAbsent(missionId, System.currentTimeMillis());
         if (current != null) {
+            conflictMap.put(missionId, System.currentTimeMillis());
             throw new DuplicatedMissionIdException("missionId = " + missionId + " has been used");
         }
     }
@@ -42,5 +43,4 @@ public class IndempotenceService {
             }
         });
     }
-
 }

@@ -25,7 +25,6 @@
 
         <version.javax.inject>1</version.javax.inject>
         <version.paranamer>2.8</version.paranamer>
-        <version.lombok>1.16.6</version.lombok>
 
         <!-- Google Stuff -->
 
@@ -141,12 +140,6 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>${version.javax.inject}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${version.lombok}</version>
         </dependency>
 
         <!-- Commons -->

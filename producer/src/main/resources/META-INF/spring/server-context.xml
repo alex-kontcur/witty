@@ -15,9 +15,8 @@
     </bean>
 
     <import resource="classpath*:META-INF/spring/infrastructure/async-support.xml"/>
-    <import resource="classpath*:META-INF/spring/infrastructure/rest.xml"/>
-    <!--<import resource="classpath*:META-INF/spring/infrastructure/web-server.xml"/>-->
     <import resource="classpath*:META-INF/spring/infrastructure/validation.xml"/>
+    <import resource="classpath*:META-INF/spring/infrastructure/rest.xml"/>
 
     <context:component-scan base-package="com.witty.producer"/>
 

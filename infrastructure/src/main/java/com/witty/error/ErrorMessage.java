@@ -5,11 +5,7 @@
 
 package com.witty.error;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,12 +16,13 @@ import java.util.List;
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
  */
-@Data
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ErrorMessage {
 
-    List<String> errors;
+    private List<String> errors;
+
+    public ErrorMessage(List<String> errors) {
+        this.errors = new ArrayList<>(errors);
+    }
 
     public ErrorMessage(String error) {
         this(Collections.singletonList(error));
@@ -35,4 +32,7 @@ public class ErrorMessage {
         this(Arrays.asList(errors));
     }
 
+    public List<String> getErrors() {
+        return Collections.unmodifiableList(errors);
+    }
 }

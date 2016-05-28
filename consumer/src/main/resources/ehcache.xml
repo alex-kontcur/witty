@@ -60,7 +60,7 @@
 
     <!-- mloyalty specific caches -->
 
-    <cache name="com.witty.api.v1.AmicableSumDto"
+    <cache name="sums"
            maxElementsInMemory="10000"
            timeToLiveSeconds="0"
            overflowToDisk="false"/>

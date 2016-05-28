@@ -9,8 +9,6 @@ import com.witty.api.v1.AmicableRequestDto;
 import com.witty.api.v1.AmicableSumDto;
 import com.witty.consumer.service.AmicableService;
 import com.witty.consumer.service.IndempotenceService;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +26,6 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping(value = "/messages", produces = MediaType.APPLICATION_JSON_VALUE)
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ConsumerController {
 
     @Inject

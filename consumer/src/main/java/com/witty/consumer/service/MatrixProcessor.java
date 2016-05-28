@@ -51,7 +51,7 @@ public class MatrixProcessor {
             array[i] = sumFactors(i);
         }
 
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 2; i < limit; i++) {
             int j = array[i];
             if (j < i && i == array[j]) {

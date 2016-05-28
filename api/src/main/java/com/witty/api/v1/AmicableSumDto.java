@@ -13,18 +13,18 @@ package com.witty.api.v1;
  */
 public class AmicableSumDto {
 
-    private Long correctAnswer;
+    private Long answer;
 
-    public Long getCorrectAnswer() {
-        return correctAnswer;
+    public Long getAnswer() {
+        return answer;
     }
 
-    public void setCorrectAnswer(Long correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setAnswer(Long answer) {
+        this.answer = answer;
     }
 
     @Override
     public String toString() {
-        return "AmicableSumDto" + "{correctAnswer=" + correctAnswer + '}';
+        return "AmicableSumDto" + "{answer=" + answer + '}';
     }
 }

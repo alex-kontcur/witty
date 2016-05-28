@@ -43,7 +43,7 @@ public class AmicableService {
             seedRange.setSeed(seed);
             long sum = matrixProcessor.calcAmicableSum(seedRange);
             AmicableSumDto amicableSumDto = new AmicableSumDto();
-            amicableSumDto.setCorrectAnswer(sum);
+            amicableSumDto.setAnswer(sum);
             return amicableSumDto;
         }
         throw new SeedRangeNotFoundException("No amicable range found for seed = " + seed);

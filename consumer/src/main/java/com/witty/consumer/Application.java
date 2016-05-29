@@ -22,8 +22,6 @@ import org.springframework.context.annotation.ImportResource;
  */
 @Configuration
 @SpringBootApplication
-@ConfigurationProperties(locations = "classpath*:/consumer.properties")
-//Here we using shared xml configurations from infrastructure module
 @ImportResource("classpath*:META-INF/spring/server-context.xml")
 public class Application {
 

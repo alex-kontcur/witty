@@ -10,7 +10,7 @@ function cleanup() {
 
 trap cleanup EXIT
 
-mvn clean package
+mvn clean package javadoc:javadoc
 java -jar consumer/target/consumer-1.0.0.jar &
 SERVER_PID=$!
 
@@ -25,6 +25,8 @@ CLIENT_PID=$!
 sleep 5
 echo ""
 echo "See logs in target/logs/producer.runtime.log"
+echo "Javadocs can be found at target/site/apidocs/index.html "
+echo ""
 echo "For EXIT press 'q'"
 
 while :

@@ -7,10 +7,10 @@
     <task:annotation-driven executor="serverExecutor" scheduler="serverScheduler"/>
 
     <bean id="serverExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="threadNamePrefix" value="GSE-"/>
+        <property name="threadNamePrefix" value="WW-"/>
+        <property name="queueCapacity" value="${executor.queue-capacity:10}"/>
         <property name="corePoolSize" value="${executor.core-pool-size:10}"/>
         <property name="maxPoolSize" value="${executor.max-pool-size:20}"/>
-        <property name="queueCapacity" value="${executor.queue-capacity:10}"/>
     </bean>
 
     <bean id="serverScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">

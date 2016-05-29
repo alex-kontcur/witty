@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 /**
- * TestUtils
+ * TestUtils - utility class for MVC tests
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
@@ -30,13 +30,4 @@ public class TestUtils {
         return mapper.writeValueAsBytes(object);
     }
 
-    public static String createStringWithLength(int length) {
-        StringBuilder builder = new StringBuilder();
-
-        for (int index = 0; index < length; index++) {
-            builder.append("a");
-        }
-
-        return builder.toString();
-    }
 }

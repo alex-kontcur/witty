@@ -6,7 +6,7 @@
 package com.witty.error;
 
 /**
- * DuplicateMissionIdException
+ * DuplicateMissionIdException - thrown if missionId has already been received
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

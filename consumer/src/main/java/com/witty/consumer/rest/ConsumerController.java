@@ -19,7 +19,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 
 /**
- * ConsumerController
+ * ConsumerController - REST endpoint of consumer with "/message" mapping. Receive http POST requests with the purpose
+ * to calculate (or find in cache) amicable numbers sums.
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

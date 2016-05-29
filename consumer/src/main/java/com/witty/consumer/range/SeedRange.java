@@ -8,7 +8,7 @@ package com.witty.consumer.range;
 import java.util.Objects;
 
 /**
- * SeedRange
+ * SeedRange - holds number range (low, high values) with seed withing this range
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

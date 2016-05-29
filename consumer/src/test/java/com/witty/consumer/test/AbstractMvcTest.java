@@ -29,7 +29,7 @@ import java.util.Map;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 /**
- * AbstractMvcTest
+ * AbstractMvcTest - parent for all MVC oriented tests
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
@@ -74,8 +74,8 @@ public class AbstractMvcTest {
         return getResult(delete, Boolean.class);
     }
 
-    private <T> T getResult(MockHttpServletRequestBuilder b, Class<T> clazz, StatusHandler... handlers) throws Exception {
-        MvcResult mvcResult = getMvcResult(b, handlers);
+    private <T> T getResult(MockHttpServletRequestBuilder b, Class<T> clazz) throws Exception {
+        MvcResult mvcResult = getMvcResult(b);
         try {
             String value = new String(mvcResult.getResponse().getContentAsByteArray(), "utf8");
             return gson.fromJson(value, clazz);
@@ -102,15 +102,15 @@ public class AbstractMvcTest {
         return getResult(put, clazz);
     }
 
-    protected <T> T doPost(String path, Map<String, String> params, Class<T> clazz, StatusHandler... handlers) throws Exception {
-        return doPost(path, params, null, clazz, handlers);
+    protected <T> T doPost(String path, Map<String, String> params, Class<T> clazz) throws Exception {
+        return doPost(path, params, null, clazz);
     }
 
-    protected <T> T doPost(String path, Object body, Class<T> clazz, StatusHandler... handlers) throws Exception {
-        return doPost(path, null, body, clazz, handlers);
+    protected <T> T doPost(String path, Object body, Class<T> clazz) throws Exception {
+        return doPost(path, null, body, clazz);
     }
 
-    protected <T> T doPost(String path, Map<String, String> params, Object body, Class<T> clazz, StatusHandler... handlers) throws Exception {
+    protected <T> T doPost(String path, Map<String, String> params, Object body, Class<T> clazz) throws Exception {
         MockHttpServletRequestBuilder post = post(path);
         fillParams(post, params);
         if (body != null) {
@@ -120,18 +120,13 @@ public class AbstractMvcTest {
         String json = gson.toJson(body);
         logger.info("[REQUEST] " + clazz.getSimpleName() + " -> " + json);
 
-        return getResult(post, clazz, handlers);
+        return getResult(post, clazz);
     }
 
-    private MvcResult getMvcResult(MockHttpServletRequestBuilder builder, StatusHandler... handlers) throws Exception {
+    private MvcResult getMvcResult(MockHttpServletRequestBuilder builder) throws Exception {
         ResultActions perform = perform(builder);
         return perform.andExpect(result -> {
             int status = result.getResponse().getStatus();
-
-            if (handlers != null && handlers.length > 0 && handlers[0].statusAccepted(status)) {
-                handlers[0].handle(new String(result.getResponse().getContentAsByteArray(), "utf8"));
-            }
-
             if (status != 200) {
                 logger.error("");
                 logger.error("Response HTTP Status = {}", status);

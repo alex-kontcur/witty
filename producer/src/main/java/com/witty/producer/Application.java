@@ -10,15 +10,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
 
 /**
- * Application
+ * Application - spring boot starter application for producer server with AnnotationConfiguration
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
  */
 @SpringBootApplication
 @Configuration
+@PropertySource("classpath*:/producer.properties")
+//Here we using shared xml configurations from infrastructure module
 @ImportResource("classpath*:META-INF/spring/server-context.xml")
 public class Application {
 

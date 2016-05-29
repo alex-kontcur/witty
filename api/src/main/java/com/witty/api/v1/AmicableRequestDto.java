@@ -9,16 +9,24 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * AmicableRequestDto
+ * AmicableRequestDto - request object used by producer server while getting amicable numbers sums
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
  */
 public class AmicableRequestDto {
 
+    /**
+     * An unique identifier used to ensure indempotence. Every time the app server sends a request,
+     * a new missionId should be generated and used.
+     */
     @NotNull
     private Integer missionId;
 
+    /**
+     * A positive integer used to seed the algorithm to be executed. This should be a random
+     * integer between 1,000 and 20,000
+     */
     @NotNull
     private Integer seed;
 

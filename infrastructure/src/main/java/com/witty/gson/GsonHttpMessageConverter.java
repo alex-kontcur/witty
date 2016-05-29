@@ -27,7 +27,7 @@ import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
- * GsonHttpMessageConverter
+ * GsonHttpMessageConverter - message converter for json bodies
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

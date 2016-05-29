@@ -20,7 +20,7 @@ import java.util.Random;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * ConsumerTest
+ * ConsumerTest - tests common scenarios of getting amicable sums
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

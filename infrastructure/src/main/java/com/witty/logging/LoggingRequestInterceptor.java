@@ -6,7 +6,7 @@
 package com.witty.logging;
 
 /**
- * LoggingRequestInterceptor
+ * LoggingRequestInterceptor - interceptor for logging of REST requests
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

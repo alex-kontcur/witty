@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * ErrorMessage
+ * ErrorMessage - json oriented object for providing human error message to client
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

@@ -17,7 +17,8 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 /**
- * AmicableService
+ * AmicableService - application service for processing AmicableRequestDto. It maps dto's seed value to prepared
+ * SeedRange object and pass that SeedRange object to MatrixProcessor
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
@@ -36,15 +37,18 @@ public class AmicableService {
         ranges = matrixProcessor.prepareRanges();
     }
 
+    /**
+     * Form AmicableSumDto response
+     *
+     * @param amicableRequestDto - request dto
+     * @return AmicableSumDto
+     */
     public AmicableSumDto calculateSum(AmicableRequestDto amicableRequestDto) {
         Integer seed = amicableRequestDto.getSeed();
         SeedRange seedRange = findRange(seed);
         if (seedRange != null) {
             seedRange.setSeed(seed);
-            long sum = matrixProcessor.calcAmicableSum(seedRange);
-            AmicableSumDto amicableSumDto = new AmicableSumDto();
-            amicableSumDto.setAnswer(sum);
-            return amicableSumDto;
+            return AmicableSumDto.valueOf(matrixProcessor.calcAmicableSum(seedRange));
         }
         throw new SeedRangeNotFoundException("No amicable range found for seed = " + seed);
     }

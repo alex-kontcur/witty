@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ServerExceptionHandler
+ * ServerExceptionHandler - spring infrastructure component for handling exceptions
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

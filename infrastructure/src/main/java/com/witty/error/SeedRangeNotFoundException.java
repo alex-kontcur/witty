@@ -6,7 +6,7 @@
 package com.witty.error;
 
 /**
- * SeedRangeNotFoundException
+ * SeedRangeNotFoundException - thrown if no appropriate SeedRange found for given seed
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016

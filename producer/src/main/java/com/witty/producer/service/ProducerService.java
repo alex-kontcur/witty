@@ -21,7 +21,8 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- * ProducerService
+ * ProducerService - sends messages via HTTP POST requests to "/messages" once every 3 seconds,
+ * with a JSON object in the request body
  *
  * @author Alexander Kontsur (bona)
  * @since 28.05.2016
@@ -47,6 +48,9 @@ public class ProducerService {
 
     private Gson gson = new Gson();
 
+    /**
+     * Periodical task for sending AmicableRequestDto to consumer server
+     */
     @Scheduled(fixedDelayString = "${witty.consumer.request.period.ms:3000}")
     public void requestTask() {
         try {
@@ -60,7 +64,7 @@ public class ProducerService {
         }
     }
 
-    public AmicableSumDto getSum(AmicableRequestDto amicableRequestDto) {
+    private AmicableSumDto getSum(AmicableRequestDto amicableRequestDto) {
         try {
             logger.info("");
             logger.info("Getting amicable sum for {}", amicableRequestDto);

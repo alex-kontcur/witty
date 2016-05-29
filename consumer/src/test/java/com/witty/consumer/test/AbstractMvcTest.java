@@ -24,7 +24,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -49,10 +52,16 @@ public class AbstractMvcTest {
 
     private MockMvc mock;
 
+    private Set<Integer> passCodes = new HashSet<>();
 
     @Before
     public void before() {
         mock = MockMvcBuilders.webAppContextSetup(wac).build();
+        passCodes.add(200);
+    }
+
+    protected void applyCodes(Integer... codes) {
+        passCodes.addAll(Arrays.asList(codes));
     }
 
     protected ResultActions perform(RequestBuilder requestBuilder) throws Exception {
@@ -83,6 +92,17 @@ public class AbstractMvcTest {
             ErrorMessage error = gson.fromJson(mvcResult.getResponse().getContentAsString(), ErrorMessage.class);
             throw new Exception(error.getErrors().get(0));
         }
+    }
+
+    private MvcResult getMvcResult(MockHttpServletRequestBuilder builder) throws Exception {
+        ResultActions perform = perform(builder);
+        return perform.andExpect(result -> {
+            int status = result.getResponse().getStatus();
+            if (!passCodes.contains(status)) {
+                logger.error("Response HTTP Status = {}", status);
+                throw new AssertionError();
+            }
+        }).andReturn();
     }
 
     protected <T> T doPut(String path, Map<String, String> params, Class<T> clazz) throws Exception {
@@ -121,18 +141,6 @@ public class AbstractMvcTest {
         logger.info("[REQUEST] " + clazz.getSimpleName() + " -> " + json);
 
         return getResult(post, clazz);
-    }
-
-    private MvcResult getMvcResult(MockHttpServletRequestBuilder builder) throws Exception {
-        ResultActions perform = perform(builder);
-        return perform.andExpect(result -> {
-            int status = result.getResponse().getStatus();
-            if (status != 200) {
-                logger.error("");
-                logger.error("Response HTTP Status = {}", status);
-                throw new AssertionError();
-            }
-        }).andReturn();
     }
 
     private static void fillParams(MockHttpServletRequestBuilder builder, Map<String, String> params) {

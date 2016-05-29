@@ -7,9 +7,8 @@ package com.witty.consumer.test;
 
 import com.witty.api.v1.AmicableRequestDto;
 import com.witty.api.v1.AmicableSumDto;
+import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,18 +26,34 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ConsumerTest extends AbstractMvcTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(ConsumerTest.class);
+    @Value("${witty.producer.seed.high.bound:20000}")
+    private Integer seedHighBound;
 
     @Value("${witty.producer.seed.low.bound:1000}")
     private Integer seedLowBound;
 
-    @Value("${witty.producer.seed.high.bound:20000}")
-    private Integer seedHighBound;
-
     @Inject
     private RestTemplate restTemplate;
 
-    private Random random = new SecureRandom();
+    private Random random;
+
+    @Before
+    public void init() {
+        applyCodes(409);
+        random = new SecureRandom();
+    }
+
+    @Test
+    public void validationSupportedProperly() throws Exception {
+        AmicableRequestDto amicableRequestDto = prepareAmicableRequest(null);
+        Throwable exception = null;
+        try {
+            doPost("/messages", amicableRequestDto, AmicableSumDto.class);
+        } catch (Throwable e) {
+            exception = e;
+        }
+        assertNotNull(exception);
+    }
 
     @Test
     public void amicableSumGettingErrorOnDuplicateMissionId() throws Exception {
@@ -63,7 +78,7 @@ public class ConsumerTest extends AbstractMvcTest {
         assertNotNull(sumDto);
     }
 
-    private AmicableRequestDto prepareAmicableRequest(int missionId) {
+    private AmicableRequestDto prepareAmicableRequest(Integer missionId) {
         AmicableRequestDto amicableRequestDto = new AmicableRequestDto();
         amicableRequestDto.setMissionId(missionId);
         amicableRequestDto.setSeed(random.nextInt(seedHighBound - seedLowBound) + seedLowBound);

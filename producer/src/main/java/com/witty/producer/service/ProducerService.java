@@ -38,11 +38,11 @@ public class ProducerService {
     @Value("${witty.consumer.url}")
     private String url;
 
-    @Value("${witty.producer.seed.low.bound:1000}")
-    private Integer seedLowBound;
-
     @Value("${witty.producer.seed.high.bound:20000}")
     private Integer seedHighBound;
+
+    @Value("${witty.producer.seed.low.bound:1000}")
+    private Integer seedLowBound;
 
     private Random random = new SecureRandom();
 

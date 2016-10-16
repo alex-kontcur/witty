@@ -1,14 +1,8 @@
-/*
- * Copyright (c) 2016, CardsMobile. All Rights Reserved.
- * Use is subject to license terms.
- */
-
 package com.witty.consumer;
 
 import com.witty.error.ServerExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
